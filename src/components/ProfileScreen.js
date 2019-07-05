@@ -1,14 +1,14 @@
 import React from "react";
 import Layout from "./Layout";
 
-function ExploreScreen() {
+function ProfileScreen() {
   return (
     <>
       <Layout>
-        <div>Explore</div>
+        <div>Profile</div>
       </Layout>
     </>
   );
 }
 
-export default ExploreScreen;
+export default ProfileScreen;

@@ -4,6 +4,8 @@ import { Router, Link } from "@reach/router";
 import UserContext from "./components/UserContext";
 import StartScreen from "./components/StartScreen";
 import ExploreScreen from "./components/ExploreScreen";
+import ProfileScreen from "./components/ProfileScreen";
+import SettingsScreen from "./components/SettingsScreen";
 
 const DOGS = [
   "https://images.dog.ceo/breeds/whippet/n02091134_18392.jpg",
@@ -88,6 +90,8 @@ function App() {
         <Router>
           <StartScreen path="/" />
           <ExploreScreen path="explore" />
+          <ProfileScreen path="profile" />
+          <SettingsScreen path="settings" />
         </Router>
       </div>
     </UserContext.Provider>

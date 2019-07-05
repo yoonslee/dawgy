@@ -1,10 +1,17 @@
 import React, { useContext } from "react";
-import { navigate } from "@reach/router";
+import {
+  navigate
+  // Redirect
+} from "@reach/router";
 
 import UserContext from "./UserContext";
 
 function StartScreen() {
   const [user, setUser] = useContext(UserContext);
+
+  // if (user.created) {
+  //   return navigate("/explore");
+  // }
 
   return (
     <div id="startScreen">
