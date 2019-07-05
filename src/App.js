@@ -6,11 +6,13 @@ import startCase from "lodash/startCase";
 import UserContext from "./contexts/UserContext";
 import DogsContext from "./contexts/DogsContext";
 
+import { PublicRoute, ProtectedRoute } from "./components/Routes";
 import StartScreen from "./components/StartScreen";
 import ExploreScreen from "./components/ExploreScreen";
 import ProfileScreen from "./components/ProfileScreen";
 import SettingsScreen from "./components/SettingsScreen";
 import MatchesScreen from "./components/MatchesScreen";
+import NotFoundScreen from "./components/NotFoundScreen";
 
 import useInterval from "./hooks/useInterval";
 
@@ -164,11 +166,13 @@ function App() {
       <DogsContext.Provider value={[dogs, setDogs]}>
         <div className="App">
           <Router>
-            <StartScreen path="/" />
-            <ExploreScreen path="explore" />
-            <ProfileScreen path="profile" />
-            <SettingsScreen path="settings" />
-            <MatchesScreen path="matches" />
+            <PublicRoute component={StartScreen} path="/" />
+            <ProtectedRoute component={ExploreScreen} path="explore" />
+            <ProtectedRoute component={ProfileScreen} path="profile" />
+            <ProtectedRoute component={SettingsScreen} path="settings" />
+            <ProtectedRoute component={MatchesScreen} path="matches" />
+
+            <PublicRoute default component={NotFoundScreen} />
           </Router>
         </div>
       </DogsContext.Provider>

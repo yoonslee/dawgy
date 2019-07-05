@@ -72,7 +72,7 @@ function MatchesScreen() {
         <div>Matches</div>
 
         <div>
-          {[...user.matches]
+          {user.matches
             .sort((a, b) => {
               if (a.updatedAt.getTime() < b.updatedAt.getTime()) return 1;
               return -1;
