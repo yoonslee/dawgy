@@ -77,6 +77,7 @@ function App() {
   );
 
   const [user, setUser] = useState({
+    id: uuidv4(),
     photo: DOGS[0],
     gender: "",
     bio: "",
