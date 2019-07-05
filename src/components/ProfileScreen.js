@@ -15,7 +15,7 @@ function ProfileScreen() {
           {user.photo ? <img src={user.photo} alt="Your profile" /> : null}
         </div>
         <div>{user.breed}</div>
-        <div>
+        {/* <div>
           <input
             value={user.bio}
             onChange={e => {
@@ -23,7 +23,7 @@ function ProfileScreen() {
               setUser(user => ({ ...user, bio: value }));
             }}
           />
-        </div>
+        </div> */}
       </Layout>
     </>
   );

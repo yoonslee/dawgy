@@ -31,7 +31,7 @@ function StartScreen() {
         </button>
       </div>
 
-      <div>
+      {/* <div>
         <input
           value={user.bio}
           onChange={e => {
@@ -39,7 +39,7 @@ function StartScreen() {
             setUser(user => ({ ...user, bio: value }));
           }}
         />
-      </div>
+      </div> */}
 
       <div>
         <button
