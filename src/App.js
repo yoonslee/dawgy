@@ -73,11 +73,11 @@ function App() {
       id: uuidv4(),
       photo: d,
       breed: startCase(d.split("/breeds/")[1].split("/")[0]).toUpperCase()
-    })) || []
+    }))
   );
 
   const [user, setUser] = useState({
-    id: uuidv4(),
+    id: DOGS[0].id,
     photo: DOGS[0],
     gender: "",
     bio: "",
