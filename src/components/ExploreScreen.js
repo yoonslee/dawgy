@@ -43,35 +43,36 @@ function ExploreScreen() {
     setUser(user => ({ ...user, skips: copyOfSkips }));
   }
 
+  const availableDogs = dogs.filter(
+    (d, i) =>
+      i !== 0 &&
+      user.skips.findIndex(id => id === d.id) === -1 &&
+      user.likes.findIndex(id => id === d.id) === -1 &&
+      user.matches.findIndex(m => m.id === d.id) === -1
+  );
+
   return (
     <>
       <Layout>
         <div>Explore</div>
         <div>
-          {dogs
-            .filter(
-              d =>
-                user.skips.findIndex(id => id === d.id) === -1 &&
-                user.likes.findIndex(id => id === d.id) === -1 &&
-                user.matches.findIndex(m => m.id === d.id) === -1
-            )
-            .map((d, i) => {
-              if (i > 0) {
-                return (
-                  <div key={d.id}>
-                    <img src={d.photo} alt="dog" />
-                    <div>{d.breed}</div>
+          {availableDogs.length === 0 ? (
+            <div>No more dogs in the area</div>
+          ) : (
+            availableDogs.map((d, i) => {
+              return (
+                <div key={d.id}>
+                  <img src={d.photo} alt="dog" />
+                  <div>{d.breed}</div>
 
-                    <div>
-                      <button onClick={() => skipDog(d.id)}>Skip</button>
-                      <button onClick={() => likeDog(d.id)}>Like</button>
-                    </div>
+                  <div>
+                    <button onClick={() => skipDog(d.id)}>Skip</button>
+                    <button onClick={() => likeDog(d.id)}>Like</button>
                   </div>
-                );
-              }
-
-              return null;
-            })}
+                </div>
+              );
+            })
+          )}
         </div>
       </Layout>
     </>
