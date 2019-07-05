@@ -102,7 +102,7 @@ function App() {
     // add the first liked dog to the matches
 
     const MATCH_RATE_INCREMENT = 0.01;
-    const AUTO_HIDE_MATCH_MODAL_TIMEOUT = 5000;
+    const AUTO_HIDE_MATCH_MODAL_TIMEOUT = 3000;
 
     const copyOfLikes = [...user.likes];
     const copyOfMatches = [...user.matches];
@@ -193,7 +193,20 @@ function App() {
 
             <PublicRoute default component={NotFoundScreen} />
           </Router>
-          {showModal && <Modal>{JSON.stringify(recentMatch)}</Modal>}
+          {showModal && (
+            <Modal>
+              <div className="modal-inner">
+                <button
+                  onClick={() => setModal(state => ({ showModal: false }))}
+                >
+                  Close
+                </button>
+                <img src={recentMatch.photo} alt="Your recent match" />
+                <img src={user.photo} alt="Your profile" />
+                {JSON.stringify(recentMatch)}
+              </div>
+            </Modal>
+          )}
         </div>
       </DogsContext.Provider>
     </UserContext.Provider>
