@@ -4,7 +4,7 @@ import Layout from "./Layout";
 
 import UserContext from "../contexts/UserContext";
 
-function ProfileScreen() {
+function MatchesScreen() {
   const [user, setUser] = useContext(UserContext);
 
   return (
@@ -29,4 +29,4 @@ function ProfileScreen() {
   );
 }
 
-export default ProfileScreen;
+export default MatchesScreen;

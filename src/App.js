@@ -1,11 +1,21 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Router, Link } from "@reach/router";
+import uuidv4 from "uuid/v4";
+import startCase from "lodash/startCase";
 
-import UserContext from "./components/UserContext";
+import UserContext from "./contexts/UserContext";
+import DogsContext from "./contexts/DogsContext";
+import MatchesContext from "./contexts/MatchesContext";
+import LikesContext from "./contexts/LikesContext";
+
 import StartScreen from "./components/StartScreen";
 import ExploreScreen from "./components/ExploreScreen";
 import ProfileScreen from "./components/ProfileScreen";
 import SettingsScreen from "./components/SettingsScreen";
+import MatchesScreen from "./components/MatchesScreen";
+
+import useInterval from "./hooks/useInterval";
+import SkipsContext from "./contexts/SkipsContext";
 
 const DOGS = [
   "https://images.dog.ceo/breeds/whippet/n02091134_18392.jpg",
@@ -61,15 +71,68 @@ const DOGS = [
 ];
 
 function App() {
-  const [dogs, setDogs] = useState(DOGS || []);
+  const [dogs, setDogs] = useState(
+    DOGS.map(d => ({
+      id: uuidv4(),
+      photo: d,
+      breed: startCase(d.split("/breeds/")[1].split("/")[0]).toUpperCase()
+    })) || []
+  );
+
   const [user, setUser] = useState({
     photo: DOGS[0],
     gender: "",
     bio: "",
+    breed: startCase(DOGS[0].split("/breeds/")[1].split("/")[0]).toUpperCase(),
     created: false,
     platinum: false,
     platinumExpirationDate: null
   });
+
+  const [matches, setMatches] = useState([]);
+  const [likes, setLikes] = useState([]);
+  const [skips, setSkips] = useState([]);
+  // match success rate
+  const [matchRate, setMatchRate] = useState(0.2);
+
+  function matchWithLikedDog() {
+    console.log("matched");
+    // add the first liked dog to the matches
+
+    const copyOfLikes = [...likes];
+    const copyOfMatches = [...matches];
+
+    const dogIndex = dogs.findIndex(d => d.id === copyOfLikes[0]);
+
+    const { id } = dogs[dogIndex];
+
+    copyOfLikes.shift();
+    copyOfMatches.push(id);
+
+    setLikes(copyOfLikes);
+    setMatches(copyOfMatches);
+  }
+
+  const MATCH_POLLING_FREQUENCY = 2000; // every 2 seconds
+  // polling for matches
+  useInterval(() => {
+    // condition needs to be that the user profile is already created
+    if (user.created) {
+      // another condition where the user needs to have at least one dog that they LIKED
+
+      if (likes.length > 0) {
+        // generate random number (0, 1), if less than the matchRate, then we need to add to match
+        const rand = Math.random();
+
+        console.log("Polling for matches...");
+        console.log(rand);
+
+        if (rand < matchRate) {
+          matchWithLikedDog();
+        }
+      }
+    }
+  }, MATCH_POLLING_FREQUENCY);
 
   // useEffect(() => {
   //   fetch("https://dog.ceo/api/breeds/image/random/50")
@@ -86,14 +149,23 @@ function App() {
 
   return (
     <UserContext.Provider value={[user, setUser]}>
-      <div className="App">
-        <Router>
-          <StartScreen path="/" />
-          <ExploreScreen path="explore" />
-          <ProfileScreen path="profile" />
-          <SettingsScreen path="settings" />
-        </Router>
-      </div>
+      <DogsContext.Provider value={[dogs, setDogs]}>
+        <MatchesContext.Provider value={[matches, setMatches]}>
+          <LikesContext.Provider value={[likes, setLikes]}>
+            <SkipsContext.Provider value={[skips, setSkips]}>
+              <div className="App">
+                <Router>
+                  <StartScreen path="/" />
+                  <ExploreScreen path="explore" />
+                  <ProfileScreen path="profile" />
+                  <SettingsScreen path="settings" />
+                  <MatchesScreen path="matches" />
+                </Router>
+              </div>
+            </SkipsContext.Provider>
+          </LikesContext.Provider>
+        </MatchesContext.Provider>
+      </DogsContext.Provider>
     </UserContext.Provider>
   );
 }

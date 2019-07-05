@@ -4,7 +4,7 @@ import {
   // Redirect
 } from "@reach/router";
 
-import UserContext from "./UserContext";
+import UserContext from "../contexts/UserContext";
 
 function StartScreen() {
   const [user, setUser] = useContext(UserContext);
