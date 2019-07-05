@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Router, Link } from "@reach/router";
 
-import StartScreen from "./components/StartScreen";
 import UserContext from "./components/UserContext";
+import StartScreen from "./components/StartScreen";
+import ExploreScreen from "./components/ExploreScreen";
 
 const DOGS = [
   "https://images.dog.ceo/breeds/whippet/n02091134_18392.jpg",
@@ -83,7 +85,10 @@ function App() {
   return (
     <UserContext.Provider value={[user, setUser]}>
       <div className="App">
-        <StartScreen />
+        <Router>
+          <StartScreen path="/" />
+          <ExploreScreen path="explore" />
+        </Router>
       </div>
     </UserContext.Provider>
   );

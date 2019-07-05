@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { navigate } from "@reach/router";
 
 import UserContext from "./UserContext";
 
@@ -35,7 +36,12 @@ function StartScreen() {
       <div>
         <button
           onClick={() => {
-            setUser(user => ({ ...user, created: true }));
+            let isValid = true;
+
+            if (isValid) {
+              setUser(user => ({ ...user, created: true }));
+              navigate("/explore");
+            }
           }}
         >
           Create Profile
