@@ -23,6 +23,25 @@ function StartScreen() {
         </button>
       </div>
 
+      <div>
+        <input
+          onChange={e => {
+            const value = e.target.value;
+            setUser(user => ({ ...user, bio: value }));
+          }}
+        />
+      </div>
+
+      <div>
+        <button
+          onClick={() => {
+            setUser(user => ({ ...user, created: true }));
+          }}
+        >
+          Create Profile
+        </button>
+      </div>
+
       <div>Platinum</div>
     </div>
   );

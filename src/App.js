@@ -58,7 +58,14 @@ const DOGS = [
 
 function App() {
   const [dogs, setDogs] = useState(DOGS || []);
-  const [user, setUser] = useState({ photo: DOGS[0], gender: "" });
+  const [user, setUser] = useState({
+    photo: DOGS[0],
+    gender: "",
+    bio: "",
+    created: false,
+    platinum: false,
+    platinumExpirationDate: null
+  });
 
   // useEffect(() => {
   //   fetch("https://dog.ceo/api/breeds/image/random/50")
