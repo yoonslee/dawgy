@@ -13,6 +13,7 @@ import ProfileScreen from "./components/ProfileScreen";
 import SettingsScreen from "./components/SettingsScreen";
 import MatchesScreen from "./components/MatchesScreen";
 import NotFoundScreen from "./components/NotFoundScreen";
+import Modal from "./components/Modal";
 
 import useInterval from "./hooks/useInterval";
 
@@ -77,6 +78,7 @@ const DOGS_OBJS = DOGS.map(d => ({
 
 function App() {
   const [dogs, setDogs] = useState(DOGS_OBJS);
+  const [{ showModal, recentMatch }, setModal] = useState(false);
 
   const [user, setUser] = useState({
     id: DOGS_OBJS[0].id,
@@ -100,6 +102,7 @@ function App() {
     // add the first liked dog to the matches
 
     const MATCH_RATE_INCREMENT = 0.01;
+    const AUTO_HIDE_MATCH_MODAL_TIMEOUT = 5000;
 
     const copyOfLikes = [...user.likes];
     const copyOfMatches = [...user.matches];
@@ -125,6 +128,22 @@ function App() {
       matches: copyOfMatches,
       matchRate: user.matchRate - MATCH_RATE_INCREMENT
     }));
+
+    setModal(state => ({
+      ...state,
+      showModal: true,
+      recentMatch: dogs[dogIndex]
+    }));
+
+    setTimeout(
+      () =>
+        setModal(state => ({
+          ...state,
+          showModal: false,
+          recentMatch: {}
+        })),
+      AUTO_HIDE_MATCH_MODAL_TIMEOUT
+    );
   }
 
   const MATCH_POLLING_FREQUENCY = 2000; // every 2 seconds
@@ -174,6 +193,7 @@ function App() {
 
             <PublicRoute default component={NotFoundScreen} />
           </Router>
+          {showModal && <Modal>{JSON.stringify(recentMatch)}</Modal>}
         </div>
       </DogsContext.Provider>
     </UserContext.Provider>
