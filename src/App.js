@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import StartScreen from "./components/StartScreen";
 import UserContext from "./components/UserContext";
@@ -58,7 +58,7 @@ const DOGS = [
 
 function App() {
   const [dogs, setDogs] = useState(DOGS || []);
-  const userHook = useState("");
+  const [user, setUser] = useState({ photo: DOGS[0], gender: "" });
 
   // useEffect(() => {
   //   fetch("https://dog.ceo/api/breeds/image/random/50")
@@ -66,6 +66,7 @@ function App() {
   //     .then(({ message, status }) => {
   //       if (status === "success") {
   //         setDogs(message || []);
+  //         console.log(setUser);
   //       }
   //     });
   // }, []);
@@ -73,11 +74,9 @@ function App() {
   // once we get the 50 dog images, we assign the first to ourself into a context object
 
   return (
-    <UserContext.Provider value={userHook}>
+    <UserContext.Provider value={[user, setUser]}>
       <div className="App">
         <StartScreen />
-
-        {JSON.stringify(dogs, null, 4)}
       </div>
     </UserContext.Provider>
   );
