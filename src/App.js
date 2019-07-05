@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+import StartScreen from "./components/StartScreen";
 
 function App() {
-  return <div className="App">App</div>;
+  const [dogs, setDogs] = useState([]);
+
+  // useEffect(() => {
+
+  // })
+
+  return (
+    <div className="App">
+      <StartScreen />
+    </div>
+  );
 }
 
 export default App;
