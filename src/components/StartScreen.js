@@ -33,6 +33,7 @@ function StartScreen() {
 
       <div>
         <input
+          value={user.bio}
           onChange={e => {
             const value = e.target.value;
             setUser(user => ({ ...user, bio: value }));
