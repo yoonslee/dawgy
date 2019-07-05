@@ -67,21 +67,23 @@ const DOGS = [
   "https://images.dog.ceo/breeds/stbernard/n02109525_4516.jpg"
 ];
 
+const DOGS_OBJS = DOGS.map(d => ({
+  id: uuidv4(),
+  photo: d,
+  breed: startCase(d.split("/breeds/")[1].split("/")[0]).toUpperCase()
+}));
+
 function App() {
-  const [dogs, setDogs] = useState(
-    DOGS.map(d => ({
-      id: uuidv4(),
-      photo: d,
-      breed: startCase(d.split("/breeds/")[1].split("/")[0]).toUpperCase()
-    }))
-  );
+  const [dogs, setDogs] = useState(DOGS_OBJS);
 
   const [user, setUser] = useState({
-    id: DOGS[0].id,
-    photo: DOGS[0],
+    id: DOGS_OBJS[0].id,
+    photo: DOGS_OBJS[0].photo,
     gender: "",
     bio: "",
-    breed: startCase(DOGS[0].split("/breeds/")[1].split("/")[0]).toUpperCase(),
+    breed: startCase(
+      DOGS_OBJS[0].photo.split("/breeds/")[1].split("/")[0]
+    ).toUpperCase(),
     created: false,
     platinum: false,
     platinumExpirationDate: null,
@@ -104,12 +106,15 @@ function App() {
 
     const { id } = dogs[dogIndex];
 
+    const now = new Date();
+
     copyOfLikes.shift();
     copyOfMatches.push({
       id,
       conversation: [],
       unmatched: false,
-      date: new Date()
+      matchedAt: now,
+      updatedAt: now
     });
 
     setUser(user => ({

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
+
+import UserContext from "../contexts/UserContext";
 
 function Conversation({ selectedDog, conversation, converse }) {
   return (
@@ -11,8 +13,8 @@ function Conversation({ selectedDog, conversation, converse }) {
       Selected Match conversation
       {conversation.map(c => (
         <div key={c.id}>
-          {c.text}
-          {c.date.toString()}
+          {c.message}
+          {c.createdAt.toString()}
           {/* <img src={selectedDog.photo} alt="Your match" /> */}
         </div>
       ))}

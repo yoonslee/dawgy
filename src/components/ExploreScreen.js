@@ -52,7 +52,8 @@ function ExploreScreen() {
             .filter(
               d =>
                 user.skips.findIndex(id => id === d.id) === -1 &&
-                user.likes.findIndex(id => id === d.id) === -1
+                user.likes.findIndex(id => id === d.id) === -1 &&
+                user.matches.findIndex(m => m.id === d.id) === -1
             )
             .map((d, i) => {
               if (i > 0) {

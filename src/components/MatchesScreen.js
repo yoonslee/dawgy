@@ -14,19 +14,37 @@ function MatchesScreen() {
 
   const [selectedMatchId, setSelectedMatchId] = useState();
 
-  function converse(to, text) {
+  function converse(to, message) {
     const copyOfMatches = [...user.matches];
 
     const matchIndex = copyOfMatches.findIndex(m => m.id === to);
 
     if (matchIndex === -1) return;
 
+    const now = new Date();
+
+    copyOfMatches[matchIndex].updatedAt = now;
     copyOfMatches[matchIndex].conversation.push({
       id: uuidv4(),
       from: user.id,
       to,
-      date: new Date(),
-      text
+      createdAt: now,
+      message,
+      readByUser: true
+    });
+
+    setUser(user => ({ ...user, matches: copyOfMatches }));
+  }
+
+  function openConversation(matchId) {
+    const copyOfMatches = [...user.matches];
+
+    // grab match from match array by index
+    const matchIndex = copyOfMatches.findIndex(m => m.id === matchId);
+
+    // override selected match conversation, iterating through each and setting read to true
+    copyOfMatches[matchIndex].conversation.forEach(c => {
+      c.readByUser = true;
     });
 
     setUser(user => ({ ...user, matches: copyOfMatches }));
@@ -54,23 +72,31 @@ function MatchesScreen() {
         <div>Matches</div>
 
         <div>
-          {[...user.matches].reverse().map(m => {
-            const dogIndex = dogs.findIndex(d => d.id === m.id);
+          {[...user.matches]
+            .sort((a, b) => {
+              if (a.updatedAt.getTime() < b.updatedAt.getTime()) return 1;
+              return -1;
+            })
+            .map(m => {
+              const dogIndex = dogs.findIndex(d => d.id === m.id);
 
-            const d = dogs[dogIndex];
+              const d = dogs[dogIndex];
 
-            return (
-              <div
-                key={d.id}
-                className={`${selectedMatchId === d.id ? "active" : ""}`}
-                onClick={() => setSelectedMatchId(d.id)}
-              >
-                <img src={d.photo} alt="dog" />
-                <div>{d.breed}</div>
-                <div>{m.date.toString()}</div>
-              </div>
-            );
-          })}
+              return (
+                <div
+                  key={d.id}
+                  className={`${selectedMatchId === d.id ? "active" : ""}`}
+                  onClick={() => {
+                    setSelectedMatchId(d.id);
+                    openConversation(d.id);
+                  }}
+                >
+                  <img src={d.photo} alt="dog" />
+                  <div>{d.breed}</div>
+                  <div>{m.matchedAt.toString()}</div>
+                </div>
+              );
+            })}
         </div>
 
         {user.matches.length === 0 ? (
