@@ -5,8 +5,6 @@ import startCase from "lodash/startCase";
 
 import UserContext from "./contexts/UserContext";
 import DogsContext from "./contexts/DogsContext";
-import MatchesContext from "./contexts/MatchesContext";
-import LikesContext from "./contexts/LikesContext";
 
 import StartScreen from "./components/StartScreen";
 import ExploreScreen from "./components/ExploreScreen";
@@ -15,7 +13,6 @@ import SettingsScreen from "./components/SettingsScreen";
 import MatchesScreen from "./components/MatchesScreen";
 
 import useInterval from "./hooks/useInterval";
-import SkipsContext from "./contexts/SkipsContext";
 
 const DOGS = [
   "https://images.dog.ceo/breeds/whippet/n02091134_18392.jpg",
@@ -86,31 +83,40 @@ function App() {
     breed: startCase(DOGS[0].split("/breeds/")[1].split("/")[0]).toUpperCase(),
     created: false,
     platinum: false,
-    platinumExpirationDate: null
+    platinumExpirationDate: null,
+    likes: [],
+    skips: [],
+    matches: [],
+    matchRate: 0.2
   });
-
-  const [matches, setMatches] = useState([]);
-  const [likes, setLikes] = useState([]);
-  const [skips, setSkips] = useState([]);
-  // match success rate
-  const [matchRate, setMatchRate] = useState(0.2);
 
   function matchWithLikedDog() {
     console.log("matched");
     // add the first liked dog to the matches
 
-    const copyOfLikes = [...likes];
-    const copyOfMatches = [...matches];
+    const MATCH_RATE_INCREMENT = 0.01;
+
+    const copyOfLikes = [...user.likes];
+    const copyOfMatches = [...user.matches];
 
     const dogIndex = dogs.findIndex(d => d.id === copyOfLikes[0]);
 
     const { id } = dogs[dogIndex];
 
     copyOfLikes.shift();
-    copyOfMatches.push(id);
+    copyOfMatches.push({
+      id,
+      conversation: [],
+      unmatched: false,
+      date: new Date()
+    });
 
-    setLikes(copyOfLikes);
-    setMatches(copyOfMatches);
+    setUser(user => ({
+      ...user,
+      likes: copyOfLikes,
+      matches: copyOfMatches,
+      matchRate: user.matchRate - MATCH_RATE_INCREMENT
+    }));
   }
 
   const MATCH_POLLING_FREQUENCY = 2000; // every 2 seconds
@@ -120,14 +126,14 @@ function App() {
     if (user.created) {
       // another condition where the user needs to have at least one dog that they LIKED
 
-      if (likes.length > 0) {
+      if (user.likes.length > 0) {
         // generate random number (0, 1), if less than the matchRate, then we need to add to match
         const rand = Math.random();
 
         console.log("Polling for matches...");
         console.log(rand);
 
-        if (rand < matchRate) {
+        if (rand < user.matchRate) {
           matchWithLikedDog();
         }
       }
@@ -150,21 +156,15 @@ function App() {
   return (
     <UserContext.Provider value={[user, setUser]}>
       <DogsContext.Provider value={[dogs, setDogs]}>
-        <MatchesContext.Provider value={[matches, setMatches]}>
-          <LikesContext.Provider value={[likes, setLikes]}>
-            <SkipsContext.Provider value={[skips, setSkips]}>
-              <div className="App">
-                <Router>
-                  <StartScreen path="/" />
-                  <ExploreScreen path="explore" />
-                  <ProfileScreen path="profile" />
-                  <SettingsScreen path="settings" />
-                  <MatchesScreen path="matches" />
-                </Router>
-              </div>
-            </SkipsContext.Provider>
-          </LikesContext.Provider>
-        </MatchesContext.Provider>
+        <div className="App">
+          <Router>
+            <StartScreen path="/" />
+            <ExploreScreen path="explore" />
+            <ProfileScreen path="profile" />
+            <SettingsScreen path="settings" />
+            <MatchesScreen path="matches" />
+          </Router>
+        </div>
       </DogsContext.Provider>
     </UserContext.Provider>
   );

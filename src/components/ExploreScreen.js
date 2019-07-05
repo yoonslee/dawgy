@@ -3,17 +3,17 @@ import React, { useContext } from "react";
 import Layout from "./Layout";
 
 import DogsContext from "../contexts/DogsContext";
-import LikesContext from "../contexts/LikesContext";
-import SkipsContext from "../contexts/SkipsContext";
+import UserContext from "../contexts/UserContext";
 
 function ExploreScreen() {
   const [dogs, setDogs] = useContext(DogsContext);
-  const [likes, setLikes] = useContext(LikesContext);
-  const [skips, setSkips] = useContext(SkipsContext);
+  const [user, setUser] = useContext(UserContext);
 
   function likeDog(id) {
+    const MATCH_RATE_INCREMENT = 0.01;
+
     // copy dogs array
-    const copyOfLikes = [...likes];
+    const copyOfLikes = [...user.likes];
 
     // grab dog by id by finding index in array first
     const likeIndex = copyOfLikes.findIndex(like => like === id);
@@ -22,12 +22,16 @@ function ExploreScreen() {
     if (likeIndex === -1) copyOfLikes.push(id);
     else return;
 
-    setLikes(copyOfLikes);
+    setUser(user => ({
+      ...user,
+      likes: copyOfLikes,
+      matchRate: user.matchRate + MATCH_RATE_INCREMENT
+    }));
   }
 
   function skipDog(id) {
     // copy dogs array
-    const copyOfSkips = [...skips];
+    const copyOfSkips = [...user.skips];
 
     // grab dog by id by finding index in array first
     const skipIndex = copyOfSkips.findIndex(skip => skip === id);
@@ -36,7 +40,7 @@ function ExploreScreen() {
     if (skipIndex === -1) copyOfSkips.push(id);
     else return;
 
-    setSkips(copyOfSkips);
+    setUser(user => ({ ...user, skips: copyOfSkips }));
   }
 
   return (
@@ -47,8 +51,8 @@ function ExploreScreen() {
           {dogs
             .filter(
               d =>
-                skips.findIndex(id => id === d.id) === -1 &&
-                likes.findIndex(id => id === d.id) === -1
+                user.skips.findIndex(id => id === d.id) === -1 &&
+                user.likes.findIndex(id => id === d.id) === -1
             )
             .map((d, i) => {
               if (i > 0) {
