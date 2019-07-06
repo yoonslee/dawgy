@@ -29,6 +29,14 @@ label {
   nav {
     // border: 1px solid red;
 
+    > img {
+      max-width: 67px;
+      display: block;
+      margin: 0 auto;
+      margin-top: 22px;
+      margin-bottom: 10px;
+    }
+
     display: flex;
     flex-direction: column;
     background: #b6f8d1;
@@ -52,15 +60,24 @@ label {
       text-decoration: none;
       text-transform: uppercase;
 
+      &.root {
+        cursor: not-allowed;
+        // pointer-events: none;
+      }
+
       &:hover {
-        background-color: #139c582d;
+        &:not(.root) {
+          background-color: #139c582d;
+        }
       }
 
       &:active {
-        background-color: #139c586e;
-
-        .iconContainer {
+        &:not(.root) {
           background-color: #139c586e;
+
+          .iconContainer {
+            background-color: #139c586e;
+          }
         }
       }
 
@@ -102,14 +119,6 @@ label {
 }
 
 #startScreen {
-  .hero {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 96px;
-    padding-bottom: 96px;
-  }
-
   form {
     display: grid;
     grid-template-columns: auto 1fr;
