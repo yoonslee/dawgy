@@ -69,7 +69,7 @@ function MatchesScreen() {
   return (
     <>
       <Layout>
-        <div>Matches</div>
+        <h2>Matches</h2>
 
         <div>
           {user.matches
@@ -100,7 +100,7 @@ function MatchesScreen() {
         </div>
 
         {user.matches.length === 0 ? (
-          <div>No match</div>
+          <div>No matches</div>
         ) : (
           <div>
             {selectedMatch ? (

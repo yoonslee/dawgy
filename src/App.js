@@ -14,6 +14,7 @@ import SettingsScreen from "./components/SettingsScreen";
 import MatchesScreen from "./components/MatchesScreen";
 import NotFoundScreen from "./components/NotFoundScreen";
 import Modal from "./components/Modal";
+import { INPUTS } from "./data/inputHelpers";
 
 import useInterval from "./hooks/useInterval";
 
@@ -70,10 +71,18 @@ const DOGS = [
   "https://images.dog.ceo/breeds/stbernard/n02109525_4516.jpg"
 ];
 
+const INPUT_KEYS = Object.keys(INPUTS);
+
 const DOGS_OBJS = DOGS.map(d => ({
   id: uuidv4(),
   photo: d,
-  breed: startCase(d.split("/breeds/")[1].split("/")[0]).toUpperCase()
+  breed: startCase(d.split("/breeds/")[1].split("/")[0]).toUpperCase(),
+  bio: INPUT_KEYS.map(inputKey => {
+    const randomInputKey =
+      INPUT_KEYS[Math.floor(Math.random() * INPUT_KEYS.length)];
+
+    return INPUTS[randomInputKey].text;
+  }).join(" ")
 }));
 
 function App() {
@@ -95,7 +104,8 @@ function App() {
     likes: [],
     skips: [],
     matches: [],
-    matchRate: 1
+    matchRate: 1,
+    shallowMode: false
   });
 
   function matchWithLikedDog() {

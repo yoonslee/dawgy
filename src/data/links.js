@@ -1,22 +1,28 @@
+import explore from "../images/explore.svg";
+import matches from "../images/matches.svg";
+
 export const LINKS = {
-  PROFILE: {
-    link: "/profile",
-    text: "Profile",
-    icon: ""
-  },
   EXPLORE: {
     link: "/explore",
     text: "Explore",
-    icon: ""
+    icon: explore
   },
   MATCHES: {
     link: "/matches",
     text: "Matches",
-    icon: ""
+    icon: matches
   },
+  PROFILE: {
+    link: "/profile",
+    text: "Profile",
+    icon: "",
+    secondary: true
+  },
+
   SETTINGS: {
     link: "/settings",
     text: "Settings",
-    icon: ""
+    icon: "",
+    secondary: true
   }
 };

@@ -5,6 +5,10 @@ import Layout from "./Layout";
 import DogsContext from "../contexts/DogsContext";
 import UserContext from "../contexts/UserContext";
 
+import like from "../images/like.svg";
+import skip from "../images/skip.svg";
+import triangle from "../images/triangle.svg";
+
 function ExploreScreen() {
   const [dogs] = useContext(DogsContext);
   const [user, setUser] = useContext(UserContext);
@@ -53,25 +57,53 @@ function ExploreScreen() {
 
   return (
     <>
-      <Layout>
-        <div>Explore</div>
+      <Layout shallowMode={user.shallowMode}>
+        <h2>Explore</h2>
         <div>
           {availableDogs.length === 0 ? (
             <div>No more dogs in the area</div>
           ) : (
-            availableDogs.map((d, i) => {
-              return (
-                <div key={d.id}>
-                  <img src={d.photo} alt="dog" />
-                  <div>{d.breed}</div>
-
+            <div
+              className={`dogCardRow ${user.shallowMode ? "shallowMode" : ""}`}
+            >
+              <div className="infoPanel">
+                <div className="infoPanelGuts">
                   <div>
-                    <button onClick={() => skipDog(d.id)}>Skip</button>
-                    <button onClick={() => likeDog(d.id)}>Like</button>
+                    <h3>Bio</h3>
+                    <p>{availableDogs[0].bio}</p>
                   </div>
+                  <div className="dogCardBreed">{availableDogs[0].breed}</div>
                 </div>
-              );
-            })
+
+                <button
+                  id="infoPanelToggle"
+                  onClick={() =>
+                    setUser(user => ({
+                      ...user,
+                      shallowMode: !user.shallowMode
+                    }))
+                  }
+                >
+                  <img src={triangle} alt="info toggle icon" />
+                  <img src={triangle} alt="info toggle icon" />
+                  <img src={triangle} alt="info toggle icon" />
+                </button>
+              </div>
+
+              <div
+                className="dogCard"
+                style={{ backgroundImage: `url(${availableDogs[0].photo})` }}
+              >
+                <div>
+                  <button onClick={() => skipDog(availableDogs[0].id)}>
+                    <img src={skip} alt="Skip" />
+                  </button>
+                  <button onClick={() => likeDog(availableDogs[0].id)}>
+                    <img src={like} alt="Like" />
+                  </button>
+                </div>
+              </div>
+            </div>
           )}
         </div>
       </Layout>
