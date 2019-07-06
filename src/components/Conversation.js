@@ -1,6 +1,4 @@
-import React, { useEffect, useContext } from "react";
-
-import UserContext from "../contexts/UserContext";
+import React from "react";
 
 function Conversation({ selectedDog, conversation, converse }) {
   return (

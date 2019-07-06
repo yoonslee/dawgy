@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Router, Link } from "@reach/router";
+import React, { useState } from "react";
+import { Router } from "@reach/router";
 import uuidv4 from "uuid/v4";
 import startCase from "lodash/startCase";
 
@@ -90,18 +90,19 @@ function App() {
     ).toUpperCase(),
     created: false,
     platinum: false,
+    platinumPurchaseDate: null,
     platinumExpirationDate: null,
     likes: [],
     skips: [],
     matches: [],
-    matchRate: 0.2
+    matchRate: 1
   });
 
   function matchWithLikedDog() {
     console.log("matched");
     // add the first liked dog to the matches
 
-    const MATCH_RATE_INCREMENT = 0.01;
+    // const MATCH_RATE_INCREMENT = 0.01;
     const AUTO_HIDE_MATCH_MODAL_TIMEOUT = 3000;
 
     const copyOfLikes = [...user.likes];
@@ -126,7 +127,7 @@ function App() {
       ...user,
       likes: copyOfLikes,
       matches: copyOfMatches,
-      matchRate: user.matchRate - MATCH_RATE_INCREMENT
+      matchRate: user.matchRate // - MATCH_RATE_INCREMENT
     }));
 
     setModal(state => ({
@@ -158,9 +159,9 @@ function App() {
         const rand = Math.random();
 
         console.log("Polling for matches...");
-        console.log(rand);
+        console.log(rand, user.matchRate / 10);
 
-        if (rand < user.matchRate) {
+        if (rand < user.matchRate / 10) {
           matchWithLikedDog();
         }
       }
@@ -197,7 +198,9 @@ function App() {
             <Modal>
               <div className="modal-inner">
                 <button
-                  onClick={() => setModal(state => ({ showModal: false }))}
+                  onClick={() =>
+                    setModal(state => ({ ...state, showModal: false }))
+                  }
                 >
                   Close
                 </button>

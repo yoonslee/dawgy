@@ -6,11 +6,11 @@ import DogsContext from "../contexts/DogsContext";
 import UserContext from "../contexts/UserContext";
 
 function ExploreScreen() {
-  const [dogs, setDogs] = useContext(DogsContext);
+  const [dogs] = useContext(DogsContext);
   const [user, setUser] = useContext(UserContext);
 
   function likeDog(id) {
-    const MATCH_RATE_INCREMENT = 0.01;
+    // const MATCH_RATE_INCREMENT = 0.01;
 
     // copy dogs array
     const copyOfLikes = [...user.likes];
@@ -25,7 +25,7 @@ function ExploreScreen() {
     setUser(user => ({
       ...user,
       likes: copyOfLikes,
-      matchRate: user.matchRate + MATCH_RATE_INCREMENT
+      matchRate: user.matchRate // + MATCH_RATE_INCREMENT
     }));
   }
 

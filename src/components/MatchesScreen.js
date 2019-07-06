@@ -9,7 +9,7 @@ import UserContext from "../contexts/UserContext";
 import Conversation from "./Conversation";
 
 function MatchesScreen() {
-  const [dogs, setDogs] = useContext(DogsContext);
+  const [dogs] = useContext(DogsContext);
   const [user, setUser] = useContext(UserContext);
 
   const [selectedMatchId, setSelectedMatchId] = useState();

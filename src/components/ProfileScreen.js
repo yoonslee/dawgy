@@ -5,7 +5,7 @@ import Layout from "./Layout";
 import UserContext from "../contexts/UserContext";
 
 function ProfileScreen() {
-  const [user, setUser] = useContext(UserContext);
+  const [user] = useContext(UserContext);
 
   return (
     <>
