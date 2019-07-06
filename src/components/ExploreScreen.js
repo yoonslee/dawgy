@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import { CSSTransition } from "react-transition-group";
 
 import Layout from "./Layout";
 
@@ -12,6 +13,7 @@ import triangle from "../images/triangle.svg";
 function ExploreScreen() {
   const [dogs] = useContext(DogsContext);
   const [user, setUser] = useContext(UserContext);
+  const [showCard, setShowCard] = useState(true);
 
   function likeDog(id) {
     // const MATCH_RATE_INCREMENT = 0.01;
@@ -31,6 +33,7 @@ function ExploreScreen() {
       likes: copyOfLikes,
       matchRate: user.matchRate // + MATCH_RATE_INCREMENT
     }));
+    setShowCard(false);
   }
 
   function skipDog(id) {
@@ -45,6 +48,7 @@ function ExploreScreen() {
     else return;
 
     setUser(user => ({ ...user, skips: copyOfSkips }));
+    setShowCard(false);
   }
 
   const availableDogs = dogs.filter(
@@ -58,7 +62,7 @@ function ExploreScreen() {
   return (
     <>
       <Layout shallowMode={user.shallowMode}>
-        <h2>Explore</h2>
+        {/* <h2>Explore</h2> */}
         <div>
           {availableDogs.length === 0 ? (
             <div>No more dogs in the area</div>
@@ -72,7 +76,7 @@ function ExploreScreen() {
                     <h3>Bio</h3>
                     <p>{availableDogs[0].bio}</p>
                   </div>
-                  <div className="dogCardBreed">{availableDogs[0].breed}</div>
+                  <span className="dogCardBreed">{availableDogs[0].breed}</span>
                 </div>
 
                 <button
@@ -90,19 +94,27 @@ function ExploreScreen() {
                 </button>
               </div>
 
-              <div
-                className="dogCard"
-                style={{ backgroundImage: `url(${availableDogs[0].photo})` }}
+              <CSSTransition
+                in={showCard}
+                classNames="card"
+                timeout={200}
+                unmountOnExit
+                onExit={() => setShowCard(true)}
               >
-                <div>
-                  <button onClick={() => skipDog(availableDogs[0].id)}>
-                    <img src={skip} alt="Skip" />
-                  </button>
-                  <button onClick={() => likeDog(availableDogs[0].id)}>
-                    <img src={like} alt="Like" />
-                  </button>
+                <div
+                  className="dogCard"
+                  style={{ backgroundImage: `url(${availableDogs[0].photo})` }}
+                >
+                  <div>
+                    <button onClick={() => skipDog(availableDogs[0].id)}>
+                      <img src={skip} alt="Skip" />
+                    </button>
+                    <button onClick={() => likeDog(availableDogs[0].id)}>
+                      <img src={like} alt="Like" />
+                    </button>
+                  </div>
                 </div>
-              </div>
+              </CSSTransition>
             </div>
           )}
         </div>

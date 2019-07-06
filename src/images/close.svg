@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="82px" height="82px" viewBox="0 0 82 82" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>close</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="36" cy="36" r="36"></circle>
+        <filter x="-10.4%" y="-10.4%" width="120.8%" height="120.8%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="0.5" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="0" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.24 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-Copy-6" transform="translate(-857.000000, -85.000000)">
+            <g id="close" transform="translate(862.000000, 90.000000)">
+                <g id="Oval-Copy-9">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#88A394" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <circle id="Oval-Copy-8" fill="#FFFFFF" cx="36.5" cy="35.5" r="27.5"></circle>
+                <path d="M36,36 L26.5,26.5 L36,36 L45.5,26.5 L36,36 Z M36,36 L45.9258551,45.9258551 L36,36 L26.0741449,45.9258551 L36,36 Z" id="Shape" stroke="#88A394" stroke-width="7" stroke-linecap="square"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -21,13 +21,67 @@ label {
   // margin: 0 auto;
 }
 
+.left-appear {
+  opacity: 0;
+  transform: translateX(-50%);
+}
+.left-appear-active {
+  opacity: 1;
+  transform: translateX(0);
+
+  transition: all 400ms ease;
+}
+
+.right-appear {
+  opacity: 0;
+  transform: translateX(50%);
+}
+.right-appear-active {
+  opacity: 1;
+  transform: translateX(0);
+
+  transition: all 400ms ease;
+}
+
+.up-appear {
+  opacity: 0;
+  transform: translateY(-50%);
+}
+.up-appear-active {
+  opacity: 1;
+  transform: translateY(0);
+
+  transition: all 400ms ease;
+}
+
+.card-enter {
+  opacity: 0;
+  transform: translateX(100px) scale(0.8);
+  // transform: ;
+}
+.card-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 250ms;
+}
+.card-exit {
+  opacity: 1;
+  transform: scale(0.9);
+}
+.card-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 250ms;
+}
+
 .layout {
   display: grid;
   grid-template-columns: 100px 1fr;
   min-height: 100vh;
-
+  transition: all 300ms;
   &.shallowMode {
     background-color: #000;
+    transition: all 300ms;
     h2 {
       color: #fff;
     }
@@ -59,6 +113,7 @@ label {
     box-shadow: inset -3px 0 9px 2px rgba(43, 177, 105, 0.5);
 
     a {
+      user-select: none;
       position: relative;
       // border: 1px solid red;
       display: flex;
@@ -361,7 +416,9 @@ label {
   right: 0;
   bottom: 0;
 
-  background-color: rgba(0, 0, 0, 1);
+  user-select: none;
+
+  background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
   z-index: 999;
 
@@ -375,6 +432,7 @@ label {
     right: 0;
     margin-top: 20px;
     margin-right: 20px;
+    z-index: 1002;
   }
 
   .dogMatch {
@@ -435,6 +493,7 @@ main {
 
   background-position: center;
   background-repeat: no-repeat;
+  background-size: cover;
   border-radius: 25px;
 
   position: relative;
@@ -454,6 +513,10 @@ main {
 
       box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.24);
       border-radius: 50%;
+
+      &:hover {
+        box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.24);
+      }
 
       &:not(:last-child) {
         margin-right: 10px;
@@ -480,6 +543,7 @@ main {
       flex-direction: column;
       justify-content: space-between;
       height: 100%;
+      align-items: flex-start;
 
       .dogCardBreed {
         border: 3px solid #2db26a;
@@ -492,6 +556,8 @@ main {
     }
 
     #infoPanelToggle {
+      user-select: none;
+
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -500,7 +566,7 @@ main {
       position: absolute;
       right: 0;
       top: 0;
-
+      transform: rotate(0);
       border: none;
       background: #b6f8d1;
       width: 34px;
@@ -530,6 +596,7 @@ main {
       #infoPanelToggle {
         img {
           transform: rotate(180deg);
+          transition: all 500ms;
         }
       }
     }

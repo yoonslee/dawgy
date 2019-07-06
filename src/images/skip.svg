@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>skip</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-Copy-2" transform="translate(-697.000000, -564.000000)">
+            <g id="skip" transform="translate(697.000000, 564.000000)">
+                <circle id="Oval-Copy-11" fill="#88A394" cx="36" cy="36" r="36"></circle>
+                <circle id="Oval-Copy-10" fill="#FFFFFF" cx="36.5" cy="35.5" r="27.5"></circle>
+                <path d="M23.0012098,27.7777778 C23.0004044,27.7307424 23,27.6836031 23,27.6363636 C23,23.4189165 26.2235498,20 30.2,20 C33.3452312,20 36.0194292,22.1389595 37,25.1201879 C37.9805708,22.1389595 40.6547688,20 43.8,20 C47.7764502,20 51,23.4189165 51,27.6363636 C51,27.6836031 50.9995956,27.7307424 50.9987902,27.7777778 C51,38.6666667 37,48 37,48 C37,48 23,38.6666667 23,27.7777778 L23.0012098,27.7777778 Z" id="Path-Copy-4" fill="#88A394" transform="translate(37.000000, 34.000000) scale(1, -1) translate(-37.000000, -34.000000) "></path>
+                <path d="M7.5,49.5 L64,20" id="Line-3" stroke="#88A394" stroke-width="5" stroke-linecap="square"></path>
+            </g>
+        </g>
+    </g>
+</svg>

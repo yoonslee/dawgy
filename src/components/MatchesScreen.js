@@ -69,7 +69,7 @@ function MatchesScreen() {
   return (
     <>
       <Layout>
-        <h2>Matches</h2>
+        {/* <h2>Matches</h2> */}
 
         <div>
           {user.matches

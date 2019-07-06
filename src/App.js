@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Router } from "@reach/router";
 import uuidv4 from "uuid/v4";
 import startCase from "lodash/startCase";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import UserContext from "./contexts/UserContext";
 import DogsContext from "./contexts/DogsContext";
@@ -217,23 +218,31 @@ function App() {
                   <img src={close} alt="Close modal" />
                 </button>
 
-                <div className="matchRow">
-                  {recentMatch.photo && (
-                    <img
-                      src={recentMatch.photo}
-                      className="dogMatch other"
-                      alt="Your recent match"
-                    />
+                <TransitionGroup className="matchRow">
+                  {recentMatch && recentMatch.photo && (
+                    <CSSTransition
+                      appear={true}
+                      classNames="left"
+                      timeout={400}
+                    >
+                      <img
+                        src={recentMatch.photo}
+                        className="dogMatch other"
+                        alt="Your recent match"
+                      />
+                    </CSSTransition>
                   )}
-
-                  <img
-                    src={user.photo}
-                    className="dogMatch user"
-                    alt="Your profile"
-                  />
-
-                  <h2>Matched!</h2>
-                </div>
+                  <CSSTransition appear={true} classNames="right" timeout={400}>
+                    <img
+                      src={user.photo}
+                      className="dogMatch user"
+                      alt="Your profile"
+                    />
+                  </CSSTransition>
+                  <CSSTransition appear={true} classNames="up" timeout={400}>
+                    <h2>Matched!</h2>
+                  </CSSTransition>
+                </TransitionGroup>
               </div>
             </Modal>
           )}
