@@ -15,6 +15,7 @@ import MatchesScreen from "./components/MatchesScreen";
 import NotFoundScreen from "./components/NotFoundScreen";
 import Modal from "./components/Modal";
 import { INPUTS } from "./data/inputHelpers";
+import close from "./images/close.svg";
 
 import useInterval from "./hooks/useInterval";
 
@@ -206,17 +207,33 @@ function App() {
           </Router>
           {showModal && (
             <Modal>
-              <div className="modal-inner">
+              <div className="modal-inner match">
                 <button
+                  className="buttonClose"
                   onClick={() =>
                     setModal(state => ({ ...state, showModal: false }))
                   }
                 >
-                  Close
+                  <img src={close} alt="Close modal" />
                 </button>
-                <img src={recentMatch.photo} alt="Your recent match" />
-                <img src={user.photo} alt="Your profile" />
-                {JSON.stringify(recentMatch)}
+
+                <div className="matchRow">
+                  {recentMatch.photo && (
+                    <img
+                      src={recentMatch.photo}
+                      className="dogMatch other"
+                      alt="Your recent match"
+                    />
+                  )}
+
+                  <img
+                    src={user.photo}
+                    className="dogMatch user"
+                    alt="Your profile"
+                  />
+
+                  <h2>Matched!</h2>
+                </div>
               </div>
             </Modal>
           )}
