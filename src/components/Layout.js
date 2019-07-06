@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, Location } from "@reach/router";
 
 import { LINKS } from "../data/links";
 import logo from "../images/dawgy-inverse.svg";
 
+import UserContext from "../contexts/UserContext";
+
 function Layout({ children, shallowMode }) {
+  const [user] = useContext(UserContext);
+
   return (
     <Location>
       {({ location }) => {
@@ -44,6 +48,10 @@ function Layout({ children, shallowMode }) {
                       {!secondary && (
                         <div className="iconContainer">
                           <img src={icon} alt={`${text} link icon`} />
+
+                          {text === "Matches" && user.matches.length > 0 && (
+                            <span>{user.matches.length}</span>
+                          )}
                         </div>
                       )}
                       {text}
