@@ -1,16 +1,26 @@
 import React from "react";
 import { Link } from "@reach/router";
 
+import { LINKS } from "../data/links";
+
 function Layout({ children }) {
   return (
-    <div>
+    <div className="layout">
       <nav>
-        <Link to="/profile">Profile</Link>
-        <Link to="/explore">Explore</Link>
-        <Link to="/matches">Matches</Link>
-        <Link to="/settings">Settings</Link>
+        {Object.keys(LINKS).map(linkKey => (
+          <Link
+            key={linkKey}
+            getProps={({ isCurrent }) =>
+              isCurrent ? { className: "active" } : null
+            }
+            to={LINKS[linkKey].link}
+          >
+            <div className="iconContainer">icon</div>
+            {LINKS[linkKey].text}
+          </Link>
+        ))}
       </nav>
-      {children}
+      <main>{children}</main>
     </div>
   );
 }

@@ -1,62 +1,108 @@
 import React, { useContext } from "react";
-import {
-  navigate
-  // Redirect
-} from "@reach/router";
+import { navigate } from "@reach/router";
 
 import UserContext from "../contexts/UserContext";
+import logo from "../images/dawgy.svg";
+
+import { INPUTS } from "../data/inputHelpers";
 
 function StartScreen() {
   const [user, setUser] = useContext(UserContext);
 
-  // if (user.created) {
-  //   return navigate("/explore");
-  // }
-
   return (
     <div id="startScreen">
-      <div>Welcome to Dawgy!</div>
-      {JSON.stringify(user, null, 4)}
-      <div>
-        {user.photo ? <img src={user.photo} alt="Your profile" /> : null}
+      <div className="hero">
+        <img src={logo} alt="Dawgy logo" />
       </div>
 
-      <div id="selectGender">
-        <button onClick={() => setUser(user => ({ ...user, gender: "M" }))}>
-          M
-        </button>
-
-        <button onClick={() => setUser(user => ({ ...user, gender: "F" }))}>
-          F
-        </button>
-      </div>
-
-      {/* <div>
-        <input
-          value={user.bio}
-          onChange={e => {
-            const value = e.target.value;
-            setUser(user => ({ ...user, bio: value }));
-          }}
-        />
-      </div> */}
-
-      <div>
-        <button
-          onClick={() => {
-            let isValid = true;
-
-            if (isValid) {
-              setUser(user => ({ ...user, created: true }));
-              navigate("/explore");
-            }
+      <div className="maxWidth">
+        <form
+          onSubmit={e => {
+            e.preventDefault();
           }}
         >
-          Create Profile
-        </button>
-      </div>
+          <div
+            className="profilePhoto"
+            style={{ backgroundImage: `url(${user.photo})` }}
+          />
 
-      <div>Platinum</div>
+          <div className="formFields">
+            <h2>Create Profile</h2>
+            <div className="genderAndBreedRow">
+              <label id="selectGender">
+                <h3>Gender</h3>
+                <div>
+                  <button
+                    id="buttonMale"
+                    className={`${user.gender === "M" ? "active" : ""}`}
+                    onClick={() => setUser(user => ({ ...user, gender: "M" }))}
+                  >
+                    M
+                  </button>
+                  <button
+                    id="buttonFemale"
+                    className={`${user.gender === "F" ? "active" : ""}`}
+                    onClick={() => setUser(user => ({ ...user, gender: "F" }))}
+                  >
+                    F
+                  </button>
+                </div>
+              </label>
+
+              <label id="inputBreed">
+                <h3>Breed</h3>
+                <input value={user.breed} readOnly disabled />
+              </label>
+            </div>
+
+            <div className="bioRow">
+              <label>
+                <h3>Bio</h3>
+                <div>
+                  <textarea value={user.bio} readOnly disabled rows={3} />
+                  <div id="textareaInputs">
+                    {Object.keys(INPUTS).map(inputKey => {
+                      const { text } = INPUTS[inputKey];
+
+                      return (
+                        <button
+                          key={inputKey}
+                          onClick={() => {
+                            setUser(user => ({
+                              ...user,
+                              bio: `${user.bio} ${text}`
+                            }));
+                          }}
+                        >
+                          {text}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </label>
+            </div>
+
+            <div>
+              <button
+                id="buttonCreateProfile"
+                onClick={() => {
+                  let isValid = true;
+
+                  if (isValid) {
+                    setUser(user => ({ ...user, created: true }));
+                    navigate("/explore");
+                  }
+                }}
+              >
+                Create Profile
+              </button>
+            </div>
+          </div>
+        </form>
+
+        {/* <div>Platinum</div> */}
+      </div>
     </div>
   );
 }
