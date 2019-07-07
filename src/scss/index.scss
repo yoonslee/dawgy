@@ -88,6 +88,18 @@ label {
 
     .noMatches {
       padding: 20px;
+      font-size: 2rem;
+      color: #00a745;
+
+      p {
+        font-size: 1rem;
+
+        a {
+          color: #00a745;
+          font-weight: 600;
+          text-decoration: underline;
+        }
+      }
     }
     .match {
       display: flex;
@@ -116,6 +128,7 @@ label {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        align-items: flex-start;
 
         .matchedAt {
           display: inline;
@@ -137,6 +150,12 @@ label {
           color: #00a745;
           position: relative;
           top: 9px;
+
+          &.start {
+            font-size: 18px;
+            top: 3px;
+            opacity: 0.5;
+          }
         }
       }
 

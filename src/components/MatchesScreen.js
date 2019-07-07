@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { Link } from "@reach/router";
 import uuidv4 from "uuid/v4";
 
 import Layout from "./Layout";
@@ -73,7 +74,12 @@ function MatchesScreen() {
           {/* <h2>Matches</h2> */}
           <div className="matchesPane">
             {user.matches.length === 0 && (
-              <div className="noMatches">No matches</div>
+              <div className="noMatches">
+                No matches (yet)
+                <p>
+                  Go see what's <Link to="/explore">out there</Link>!
+                </p>
+              </div>
             )}
 
             {user.matches
@@ -116,8 +122,12 @@ function MatchesScreen() {
                     <div className="matchInfo">
                       {/* <div>{d.breed}</div> */}
                       <div className="matchedAt">Matched {formattedDate}</div>
-                      {lastMessage && (
+                      {lastMessage ? (
                         <div className="lastMessage">{lastMessage}</div>
+                      ) : (
+                        <div className="lastMessage start">
+                          Start the conversation
+                        </div>
                       )}
                     </div>
                   </div>
