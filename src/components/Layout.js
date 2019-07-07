@@ -6,7 +6,7 @@ import logo from "../images/dawgy-inverse.svg";
 
 import UserContext from "../contexts/UserContext";
 
-function Layout({ children, shallowMode }) {
+function Layout({ children, shallowMode, isMatchesScreen }) {
   const [user] = useContext(UserContext);
 
   return (
@@ -15,7 +15,11 @@ function Layout({ children, shallowMode }) {
         const isRootPath = location.pathname === "/" ? true : false;
 
         return (
-          <div className={`layout ${shallowMode ? "shallowMode" : ""}`}>
+          <div
+            className={`layout ${shallowMode ? "shallowMode" : ""} ${
+              isMatchesScreen ? "isMatchesScreen" : ""
+            }`}
+          >
             <nav>
               <div>
                 <img src={logo} alt="Dawgy logo" />

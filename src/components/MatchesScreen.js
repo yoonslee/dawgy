@@ -68,52 +68,72 @@ function MatchesScreen() {
 
   return (
     <>
-      <Layout>
-        {/* <h2>Matches</h2> */}
+      <Layout isMatchesScreen={true}>
+        <div className="matchesPage">
+          {/* <h2>Matches</h2> */}
+          <div className="matchesPane">
+            {user.matches.length === 0 && (
+              <div className="noMatches">No matches</div>
+            )}
 
-        <div>
-          {user.matches
-            .sort((a, b) => {
-              if (a.updatedAt.getTime() < b.updatedAt.getTime()) return 1;
-              return -1;
-            })
-            .map(m => {
-              const dogIndex = dogs.findIndex(d => d.id === m.id);
+            {user.matches
+              .sort((a, b) => {
+                if (a.updatedAt.getTime() < b.updatedAt.getTime()) return 1;
+                return -1;
+              })
+              .map(m => {
+                const dogIndex = dogs.findIndex(d => d.id === m.id);
 
-              const d = dogs[dogIndex];
+                const d = dogs[dogIndex];
 
-              return (
-                <div
-                  key={d.id}
-                  className={`${selectedMatchId === d.id ? "active" : ""}`}
-                  onClick={() => {
-                    setSelectedMatchId(d.id);
-                    openConversation(d.id);
-                  }}
-                >
-                  <img src={d.photo} alt="dog" />
-                  <div>{d.breed}</div>
-                  <div>{m.matchedAt.toString()}</div>
-                </div>
-              );
-            })}
-        </div>
+                let lastMessage;
 
-        {user.matches.length === 0 ? (
-          <div>No matches</div>
-        ) : (
+                if (m.conversation.length > 0) {
+                  lastMessage =
+                    m.conversation[m.conversation.length - 1].message;
+                }
+
+                const month = m.matchedAt.getMonth() + 1;
+                const day = m.matchedAt.getDate();
+
+                const formattedDate = `${day}/${month}`;
+
+                return (
+                  <div
+                    key={d.id}
+                    className={`match ${
+                      selectedMatchId === d.id ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      setSelectedMatchId(d.id);
+                      openConversation(d.id);
+                    }}
+                  >
+                    <div
+                      className="imgContainer"
+                      style={{ backgroundImage: `url(${d.photo})` }}
+                    />
+                    <div className="matchInfo">
+                      {/* <div>{d.breed}</div> */}
+                      <div className="matchedAt">Matched {formattedDate}</div>
+                      {lastMessage && (
+                        <div className="lastMessage">{lastMessage}</div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
           <div>
-            {selectedMatch ? (
+            {selectedMatch && (
               <Conversation
                 conversation={selectedMatch.conversation}
                 selectedDog={selectedDog}
                 converse={converse}
               />
-            ) : (
-              <div>Select a match</div>
             )}
           </div>
-        )}
+        </div>
       </Layout>
     </>
   );
