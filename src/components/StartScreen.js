@@ -95,6 +95,7 @@ function StartScreen() {
             <div>
               <button
                 id="buttonCreateProfile"
+                className="buttonMain"
                 onClick={() => {
                   let isValid = true;
 

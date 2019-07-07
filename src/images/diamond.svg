@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="64px" viewBox="0 0 72 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>diamond</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="99.6516047%" id="linearGradient-1">
+            <stop stop-color="#00DAFF" offset="0%"></stop>
+            <stop stop-color="#6E40C3" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-Copy-7" transform="translate(-619.000000, -473.000000)" fill="#FFFFFF" stroke="url(#linearGradient-1)" stroke-width="7">
+            <g id="Group" transform="translate(536.000000, 400.000000)">
+                <path d="M101.386062,76.5 L87.5250172,93.6554805 L119,131.524371 L150.474983,93.6554805 L136.613938,76.5 L101.386062,76.5 Z" id="diamond"></path>
+            </g>
+        </g>
+    </g>
+</svg>

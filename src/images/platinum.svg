@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="83px" height="45px" viewBox="0 0 83 45" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>platinum</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#B8FF5E" offset="0%"></stop>
+            <stop stop-color="#40C342" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-Copy-7" transform="translate(-327.000000, -480.000000)" fill="#FFFFFF" stroke="url(#linearGradient-1)" stroke-width="7">
+            <path d="M342.731369,483.5 L331.664702,521.5 L405.335298,521.5 L394.268631,483.5 L342.731369,483.5 Z" id="platinum"></path>
+        </g>
+    </g>
+</svg>
